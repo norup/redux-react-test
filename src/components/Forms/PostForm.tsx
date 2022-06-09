@@ -48,7 +48,9 @@ const PostForm = ({ post, onSubmit }: PostFormProps) => {
             value={values.content}
           />
           {errors.content && touched.content && errors.content}
-          <button type="submit">{post ? "Изменить" : "Создать"}</button>
+          <button type="submit" className="button">
+            {post ? "Изменить" : "Создать"}
+          </button>
         </form>
       )}
     </Formik>

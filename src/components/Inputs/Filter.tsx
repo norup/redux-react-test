@@ -10,7 +10,7 @@ const Filter = ({ onChange }: FilterProps) => {
     <input
       placeholder="Поиск"
       className="search"
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => onChange(e.target.value.toLowerCase())}
     />
   );
 };
