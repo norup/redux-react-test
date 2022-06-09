@@ -10,7 +10,7 @@ const Home = () => {
   const { data, error, isLoading } = postAPI.useFetchAllPostsQuery();
   const [query, setQuery] = useState<string>("");
   const [sorted, setSorted] = useState<boolean>(false);
-
+  const [sortedList, setSortedList] = useState<IPost[]>();
   return (
     <>
       <h1>Посты</h1>
@@ -21,9 +21,15 @@ const Home = () => {
           onClick={() => {
             if (!sorted) {
               setSorted(true);
-              // data.sort((a: IPost, b: IPost) => a.title - b.title);
+              let temp = [...data];
+              setSortedList(
+                temp.sort((a: IPost, b: IPost) =>
+                  a.title.localeCompare(b.title)
+                )
+              );
             } else {
               setSorted(false);
+              setSortedList([...data]);
             }
           }}
         >
@@ -37,9 +43,15 @@ const Home = () => {
           <PostsList
             posts={
               query
-                ? data.filter((post: IPost) =>
-                    post.title.toLowerCase().includes(query)
-                  )
+                ? sorted && sortedList
+                  ? sortedList.filter((post: IPost) =>
+                      post.title.toLowerCase().includes(query)
+                    )
+                  : data.filter((post: IPost) =>
+                      post.title.toLowerCase().includes(query)
+                    )
+                : sorted && sortedList
+                ? sortedList
                 : data
             }
           />
