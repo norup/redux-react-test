@@ -1,6 +1,7 @@
 import React from "react";
-import { IPost } from "../models/IPost";
+import { IPost } from "../../models/IPost";
 import { Formik } from "formik";
+import "./index.css";
 
 interface PostFormProps {
   post: IPost | null;
@@ -14,10 +15,10 @@ const PostForm = ({ post, onSubmit }: PostFormProps) => {
         id: post?.id,
         title: post?.title || "",
         content: post?.content || "",
-        timestamp: post?.timestamp,
+        timestamp: post?.timestamp || Math.floor(Date.now() / 1000),
       }}
       onSubmit={(values) => {
-        values.timestamp = Date.now();
+        values.timestamp = Math.floor(Date.now() / 1000);
         onSubmit(values);
       }}
     >
@@ -29,8 +30,9 @@ const PostForm = ({ post, onSubmit }: PostFormProps) => {
         handleBlur,
         handleSubmit,
       }) => (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="post-form">
           <input
+            placeholder="Введите заголовок"
             type="text"
             name="title"
             onChange={handleChange}
@@ -38,15 +40,15 @@ const PostForm = ({ post, onSubmit }: PostFormProps) => {
             value={values.title}
           />
           {errors.title && touched.title && errors.title}
-          <input
-            type="text"
+          <textarea
+            placeholder="Введите контент"
             name="content"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.content}
           />
           {errors.content && touched.content && errors.content}
-          <button type="submit">Submit</button>
+          <button type="submit">{post ? "Изменить" : "Создать"}</button>
         </form>
       )}
     </Formik>
