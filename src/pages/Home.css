@@ -8,3 +8,12 @@
   border-radius: 10px;
   background-color: #fff;
 }
+
+.sort-btn {
+  background-color: #fff;
+  border: 0;
+  font-size: 16px;
+}
+.sort-btn:hover {
+  cursor: pointer;
+}

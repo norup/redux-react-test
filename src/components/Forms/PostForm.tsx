@@ -2,6 +2,7 @@ import React from "react";
 import { IPost } from "../../models/IPost";
 import { Formik } from "formik";
 import "./index.css";
+import { PostFormValidationSchema } from "../validation-schemes/PostFormValidationSchema";
 
 interface PostFormProps {
   post: IPost | null;
@@ -17,6 +18,7 @@ const PostForm = ({ post, onSubmit }: PostFormProps) => {
         content: post?.content || "",
         timestamp: post?.timestamp || Math.floor(Date.now() / 1000),
       }}
+      validationSchema={PostFormValidationSchema}
       onSubmit={(values) => {
         values.timestamp = Math.floor(Date.now() / 1000);
         onSubmit(values);
@@ -32,6 +34,7 @@ const PostForm = ({ post, onSubmit }: PostFormProps) => {
       }) => (
         <form onSubmit={handleSubmit} className="post-form">
           <input
+            className={errors.title ? "error" : ""}
             placeholder="Введите заголовок"
             type="text"
             name="title"
@@ -39,15 +42,14 @@ const PostForm = ({ post, onSubmit }: PostFormProps) => {
             onBlur={handleBlur}
             value={values.title}
           />
-          {errors.title && touched.title && errors.title}
           <textarea
+            className={errors.content ? "error" : ""}
             placeholder="Введите контент"
             name="content"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.content}
           />
-          {errors.content && touched.content && errors.content}
           <button type="submit" className="button">
             {post ? "Изменить" : "Создать"}
           </button>

@@ -11,9 +11,13 @@ const PostsList = ({ posts }: PostsListProps) => {
   return (
     <>
       <div className="post-list">
-        {posts.map((post) => {
-          return <PostItem key={post.id} post={post} />;
-        })}
+        {posts.length >= 1 ? (
+          posts.map((post) => {
+            return <PostItem key={post.id} post={post} />;
+          })
+        ) : (
+          <span className="not-found">Не найдено</span>
+        )}
       </div>
     </>
   );

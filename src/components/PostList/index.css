@@ -1,4 +1,6 @@
 .post-list {
+  position: relative;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
@@ -34,4 +36,12 @@
 .post-list-item .description {
   padding: 5px 0;
   font-size: 14px;
+}
+
+.not-found {
+  position: absolute;
+  left: 50%;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
