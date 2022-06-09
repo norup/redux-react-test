@@ -9,5 +9,13 @@ export const convertDate = (timestamp: number) => {
       ? date.getMinutes()
       : "0" + date.getMinutes().toString();
 
-  return `${hours}:${minutes}/${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`;
+  const day =
+    date.getDate() < 10 ? "0" + date.getDate().toString() : date.getDate();
+
+  const month =
+    date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1).toString()
+      : date.getMonth() + 1;
+
+  return `${hours}:${minutes}/${day}.${month}.${date.getFullYear()}`;
 };
